@@ -1,4 +1,4 @@
-![gattacker](https://raw.githubusercontent.com/jslawek/gattacker/master/logo/gattacker.png)
+![gattacker](https://raw.githubusercontent.com/securing/gattacker/master/logo/gattacker.png)
 
 
 A Node.js package for BLE (Bluetooth Low Energy) Man-in-the-Middle & more.
@@ -8,6 +8,7 @@ A Node.js package for BLE (Bluetooth Low Energy) Man-in-the-Middle & more.
 
 see:
 https://github.com/sandeepmistry/noble
+
 https://github.com/sandeepmistry/bleno
 
 
