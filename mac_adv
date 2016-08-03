@@ -1,0 +1,34 @@
+#!/bin/bash
+
+echo "Advertise with cloned MAC address"
+
+BDADDR=/usr/local/bin/bdaddr
+
+. ./config.env
+
+HCIDEV="hci$BLENO_HCI_DEVICE_ID"
+
+if [ $# -lt 2 ]; then
+	echo "Usage: sudo $0 -a <advertisement_file> [ -s <services_file> ] "
+	exit
+fi
+
+TARGETID=`echo $2 |cut -d "/" -f 2 | cut -d "_" -f 1`
+
+TARGETMAC=`echo $TARGETID | fold -w2 | paste -sd':' - | tr '[a-z]' '[A-Z]'`
+
+HCIMAC=`hciconfig $HCIDEV |grep "Address" | cut -d" " -f 3`
+
+# case-insensitive - bash 4: 
+while [ "${HCIMAC,,}" != "${TARGETMAC,,}" ]; do
+	hciconfig $HCIDEV up
+	$BDADDR -i $HCIDEV $TARGETMAC;
+	echo "Re-plug the interface and hit enter";
+	read 
+	hciconfig $HCIDEV up
+	HCIMAC=`hciconfig $HCIDEV |grep "Address" | cut -d" " -f 3`
+	echo "Current MAC: $HCIMAC"
+done
+hciconfig $HCIDEV up
+
+node advertise $1 $2 $3 $4

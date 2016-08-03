@@ -1,0 +1,80 @@
+{
+  "name": "bleno",
+  "version": "0.4.0",
+  "description": "A Node.js module for implementing BLE (Bluetooth Low Energy) peripherals",
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.8"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "scripts": {
+    "pretest": "jshint *.js lib/. test/. examples/.",
+    "test": "mocha -R spec test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sandeepmistry/bleno"
+  },
+  "keywords": [
+    "BLE",
+    "Bluetooth",
+    "Bluetooth Low Energy",
+    "Bluetooth Smart",
+    "peripheral"
+  ],
+  "author": {
+    "name": "Sandeep Mistry"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "jshint": "~2.3.0",
+    "should": "~2.0.2",
+    "mocha": "~1.14.0",
+    "node-blink1": "~0.2.2"
+  },
+  "dependencies": {
+    "debug": "^2.2.0",
+    "bluetooth-hci-socket": "~0.4.3",
+    "bplist-parser": "0.0.6",
+    "xpc-connection": "~0.1.4"
+  },
+  "optionalDependencies": {
+    "bluetooth-hci-socket": "~0.4.3",
+    "bplist-parser": "0.0.6",
+    "xpc-connection": "~0.1.4"
+  },
+  "gitHead": "d0d6582f882c0b2c3d279e317882496a17c9f023",
+  "bugs": {
+    "url": "https://github.com/sandeepmistry/bleno/issues"
+  },
+  "homepage": "https://github.com/sandeepmistry/bleno",
+  "_id": "bleno@0.4.0",
+  "_shasum": "58c9012ae09c0d21436ce3ea32a394fab5c0de3d",
+  "_from": "bleno@*",
+  "_npmVersion": "2.14.7",
+  "_nodeVersion": "4.2.3",
+  "_npmUser": {
+    "name": "sandeepmistry",
+    "email": "sandeep.mistry@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "sandeepmistry",
+      "email": "sandeep.mistry@gmail.com"
+    }
+  ],
+  "dist": {
+    "shasum": "58c9012ae09c0d21436ce3ea32a394fab5c0de3d",
+    "tarball": "https://registry.npmjs.org/bleno/-/bleno-0.4.0.tgz"
+  },
+  "_npmOperationalInternal": {
+    "host": "packages-13-west.internal.npmjs.com",
+    "tmp": "tmp/bleno-0.4.0.tgz_1458775380819_0.3093927304726094"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/bleno/-/bleno-0.4.0.tgz"
+}

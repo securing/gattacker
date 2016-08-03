@@ -1,0 +1,41 @@
+{
+  "name": "gattacker",
+  "version": "0.1.0",
+  "description": "GATTacker",
+  "author": "Slawomir Jasek <slawekj@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/securing/gattacker"
+  },
+  "main": "advertise.js",
+  "scripts": {
+    "advertise": "node advertise.js",
+    "scan": "node scan.js",
+    "ws-slave": "node ws-slave.js"
+  },
+  "keywords": [
+    "bluetooth",
+    "BLE",
+    "bluetooth low energy",
+    "bluetooth smart",
+    "MITM",
+    "man in the middle",
+    "debug",
+    "proxy"
+  ],
+  "os": [
+    "linux"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.0.1",
+    "bluetooth-hci-socket" : "^0.4.3",
+    "bplist-parser": "^0.0.6",
+    "colors": "^1.1.2",
+    "debug": "^2.2.0",
+    "env2": "^2.1.0",
+    "glob": "^7.0.5",
+    "ws": "^1.1.1",
+    "node-getopt" : "^0.2.3"
+  }
+}
