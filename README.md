@@ -7,6 +7,7 @@ A Node.js package for BLE (Bluetooth Low Energy) Man-in-the-Middle & more.
 ## Prerequisites
 
 see:
+
 https://github.com/sandeepmistry/noble
 
 https://github.com/sandeepmistry/bleno
@@ -22,7 +23,7 @@ npm install gattacker
 
 ### Configure 
 
-Set up variables in config.env:
+Running both components Set up variables in config.env:
 
 * NOBLE_HCI_DEVICE_ID : noble ("central", ws-slave) device
 * BLENO_HCI_DEVICE_ID : bleno ("peripheral", advertise) device
@@ -102,6 +103,7 @@ Functions:
 <dynamic|static><Write|Read|Notify> 
 
  dynamic: connect to original device
+
  static: do not connect to original device, run the tampering function locally
 
  It will try to invoke the specified function from hookFunctions, include your own.
@@ -158,6 +160,12 @@ Try switching NOBLE_HCI_INTERFACE and BLENO_HCI_INTERFACE
 ```sh
 hcidump -x -t <hci_interface>
 ```
+
+## FAQ, more information
+
+FAQ: [https://github.com/securing/gattacker/wiki/FAQ](https://github.com/securing/gattacker/wiki/FAQ)
+
+More information: [www.gattack.io](www.gattack.io)
 
 
 
