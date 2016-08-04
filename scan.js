@@ -113,11 +113,6 @@ wsclient.on('discover', function(peripheralId, address, addressType, connectable
           utils.saveAdvertisement(peripheralId, address, addressType, connectable, advertisement, rssi);
         }
 
-        if (peripheralId === specifiedPeripheral) {
-          wsclient.stopScanning();
-          wsclient.explore(peripheralId, readValues);
-        }
-
         if (!peripherals[peripheralId]) {
           peripherals[peripheralId] = { explored: false, triedToExplore: false};
         }
