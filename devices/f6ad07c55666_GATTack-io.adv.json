@@ -1,0 +1,13 @@
+{
+    "id": "f6ad07c55666",
+    "eir": "0201060303aafe1116aafe20000b821ac001c9adcc0138bc45",
+    "scanResponse": "0b094741545461636b2e696f020a000a160dd0396f6c4e33315d",
+    "decodedNonEditable": {
+        "localName": "GATTack.io",
+        "manufacturerDataHex": null,
+        "manufacturerDataAscii": null,
+        "serviceUuids": [
+            "feaa"
+        ]
+    }
+}

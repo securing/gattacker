@@ -1,0 +1,462 @@
+[
+    {
+        "uuid": "1800",
+        "name": "Generic Access",
+        "type": "org.bluetooth.service.generic_access",
+        "startHandle": 1,
+        "endHandle": 7,
+        "characteristics": [
+            {
+                "uuid": "2a00",
+                "name": "Device Name",
+                "properties": [
+                    "read"
+                ],
+                "value": "4741545461636b2e696f",
+                "descriptors": [],
+                "startHandle": 2,
+                "valueHandle": 3,
+                "asciiValue": "GATTack.io"
+            },
+            {
+                "uuid": "2a01",
+                "name": "Appearance",
+                "properties": [
+                    "read"
+                ],
+                "value": "0000",
+                "descriptors": [],
+                "startHandle": 4,
+                "valueHandle": 5,
+                "asciiValue": "  "
+            },
+            {
+                "uuid": "2a04",
+                "name": "Peripheral Preferred Connection Parameters",
+                "properties": [
+                    "read"
+                ],
+                "value": "2000200300009001",
+                "descriptors": [],
+                "startHandle": 6,
+                "valueHandle": 7,
+                "asciiValue": "        "
+            }
+        ]
+    },
+    {
+        "uuid": "1801",
+        "name": "Generic Attribute",
+        "type": "org.bluetooth.service.generic_attribute",
+        "startHandle": 8,
+        "endHandle": 11,
+        "characteristics": [
+            {
+                "uuid": "2a05",
+                "name": "Service Changed",
+                "properties": [
+                    "indicate"
+                ],
+                "value": "",
+                "descriptors": [
+                    {
+                        "handle": 11,
+                        "uuid": "2902",
+                        "value": ""
+                    }
+                ],
+                "startHandle": 9,
+                "valueHandle": 10
+            }
+        ]
+    },
+    {
+        "uuid": "a1ea81300e1bd4a1b84063f88c8da1ea",
+        "name": null,
+        "type": null,
+        "startHandle": 12,
+        "endHandle": 34,
+        "characteristics": [
+            {
+                "uuid": "a1ea81310e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "write"
+                ],
+                "value": "",
+                "descriptors": [],
+                "startHandle": 13,
+                "valueHandle": 14
+            },
+            {
+                "uuid": "a1ea81320e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "read",
+                    "write"
+                ],
+                "value": "",
+                "descriptors": [],
+                "startHandle": 15,
+                "valueHandle": 16,
+                "asciiValue": ""
+            },
+            {
+                "uuid": "a1ea81330e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "write"
+                ],
+                "value": "",
+                "descriptors": [],
+                "startHandle": 17,
+                "valueHandle": 18
+            },
+            {
+                "uuid": "a1ea81340e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "write"
+                ],
+                "value": "",
+                "descriptors": [],
+                "startHandle": 19,
+                "valueHandle": 20
+            },
+            {
+                "uuid": "a1ea81350e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "write"
+                ],
+                "value": "",
+                "descriptors": [],
+                "startHandle": 21,
+                "valueHandle": 22
+            },
+            {
+                "uuid": "a1ea81360e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "write"
+                ],
+                "value": "",
+                "descriptors": [],
+                "startHandle": 23,
+                "valueHandle": 24
+            },
+            {
+                "uuid": "a1ea81370e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "write"
+                ],
+                "value": "",
+                "descriptors": [],
+                "startHandle": 25,
+                "valueHandle": 26
+            },
+            {
+                "uuid": "a1ea81380e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "read",
+                    "write"
+                ],
+                "value": "",
+                "descriptors": [],
+                "startHandle": 27,
+                "valueHandle": 28,
+                "asciiValue": ""
+            },
+            {
+                "uuid": "a1ea81390e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "read",
+                    "write"
+                ],
+                "value": "",
+                "descriptors": [],
+                "startHandle": 29,
+                "valueHandle": 30,
+                "asciiValue": ""
+            },
+            {
+                "uuid": "a1ea813a0e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "read",
+                    "write"
+                ],
+                "value": "02",
+                "descriptors": [],
+                "startHandle": 31,
+                "valueHandle": 32,
+                "asciiValue": " "
+            },
+            {
+                "uuid": "a1ea813b0e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "read",
+                    "write"
+                ],
+                "value": "",
+                "descriptors": [],
+                "startHandle": 33,
+                "valueHandle": 34,
+                "asciiValue": ""
+            }
+        ]
+    },
+    {
+        "uuid": "1804",
+        "name": "Tx Power",
+        "type": "org.bluetooth.service.tx_power",
+        "startHandle": 35,
+        "endHandle": 37,
+        "characteristics": [
+            {
+                "uuid": "2a07",
+                "name": "Tx Power Level",
+                "properties": [
+                    "read",
+                    "write"
+                ],
+                "value": "00",
+                "descriptors": [],
+                "startHandle": 36,
+                "valueHandle": 37,
+                "asciiValue": " "
+            }
+        ]
+    },
+    {
+        "uuid": "a1ea81100e1bd4a1b84063f88c8da1ea",
+        "name": null,
+        "type": null,
+        "startHandle": 38,
+        "endHandle": 58,
+        "characteristics": [
+            {
+                "uuid": "a1ea81110e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "read",
+                    "write"
+                ],
+                "value": "f7826da64fa24e988024bc5b71e0893e",
+                "descriptors": [],
+                "startHandle": 39,
+                "valueHandle": 40,
+                "asciiValue": "  m O N  $ [q  >"
+            },
+            {
+                "uuid": "a1ea81120e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "read",
+                    "write"
+                ],
+                "value": "ce90",
+                "descriptors": [],
+                "startHandle": 41,
+                "valueHandle": 42,
+                "asciiValue": "  "
+            },
+            {
+                "uuid": "a1ea81130e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "read",
+                    "write"
+                ],
+                "value": "51b8",
+                "descriptors": [],
+                "startHandle": 43,
+                "valueHandle": 44,
+                "asciiValue": "Q "
+            },
+            {
+                "uuid": "a1ea81140e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "read",
+                    "write"
+                ],
+                "value": "4741545461636b2e696f0000000000",
+                "descriptors": [],
+                "startHandle": 45,
+                "valueHandle": 46,
+                "asciiValue": "GATTack.io     "
+            },
+            {
+                "uuid": "a1ea81150e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "read",
+                    "write"
+                ],
+                "value": "396f6c4e",
+                "descriptors": [],
+                "startHandle": 47,
+                "valueHandle": 48,
+                "asciiValue": "9olN"
+            },
+            {
+                "uuid": "a1ea81160e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "read",
+                    "write"
+                ],
+                "value": "bf",
+                "descriptors": [],
+                "startHandle": 49,
+                "valueHandle": 50,
+                "asciiValue": " "
+            },
+            {
+                "uuid": "a1ea81170e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "read",
+                    "write"
+                ],
+                "value": "f7826da6bc5b71e0893e",
+                "descriptors": [],
+                "startHandle": 51,
+                "valueHandle": 52,
+                "asciiValue": "  m  [q  >"
+            },
+            {
+                "uuid": "a1ea81180e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "read",
+                    "write"
+                ],
+                "value": "736b59715452",
+                "descriptors": [],
+                "startHandle": 53,
+                "valueHandle": 54,
+                "asciiValue": "skYqTR"
+            },
+            {
+                "uuid": "a1ea81190e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "read",
+                    "write"
+                ],
+                "value": "026761747461636b2e696f",
+                "descriptors": [],
+                "startHandle": 55,
+                "valueHandle": 56,
+                "asciiValue": " gattack.io"
+            },
+            {
+                "uuid": "a1ea811a0e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "read",
+                    "write"
+                ],
+                "value": "e8",
+                "descriptors": [],
+                "startHandle": 57,
+                "valueHandle": 58,
+                "asciiValue": " "
+            }
+        ]
+    },
+    {
+        "uuid": "a1ea81200e1bd4a1b84063f88c8da1ea",
+        "name": null,
+        "type": null,
+        "startHandle": 59,
+        "endHandle": 61,
+        "characteristics": [
+            {
+                "uuid": "a1ea81210e1bd4a1b84063f88c8da1ea",
+                "name": null,
+                "properties": [
+                    "read",
+                    "write"
+                ],
+                "value": "0140",
+                "descriptors": [],
+                "startHandle": 60,
+                "valueHandle": 61,
+                "asciiValue": " @"
+            }
+        ]
+    },
+    {
+        "uuid": "180a",
+        "name": "Device Information",
+        "type": "org.bluetooth.service.device_information",
+        "startHandle": 62,
+        "endHandle": 68,
+        "characteristics": [
+            {
+                "uuid": "2a29",
+                "name": "Manufacturer Name String",
+                "properties": [
+                    "read"
+                ],
+                "value": "4b6f6e74616b74204d6963726f2d4c6f636174696f6e",
+                "descriptors": [],
+                "startHandle": 63,
+                "valueHandle": 64,
+                "asciiValue": "Kontakt Micro-Location"
+            },
+            {
+                "uuid": "2a27",
+                "name": "Hardware Revision String",
+                "properties": [
+                    "read"
+                ],
+                "value": "322e36",
+                "descriptors": [],
+                "startHandle": 65,
+                "valueHandle": 66,
+                "asciiValue": "2.6"
+            },
+            {
+                "uuid": "2a26",
+                "name": "Firmware Revision String",
+                "properties": [
+                    "read"
+                ],
+                "value": "332e31",
+                "descriptors": [],
+                "startHandle": 67,
+                "valueHandle": 68,
+                "asciiValue": "3.1"
+            }
+        ]
+    },
+    {
+        "uuid": "180f",
+        "name": "Battery Service",
+        "type": "org.bluetooth.service.battery_service",
+        "startHandle": 69,
+        "endHandle": 65535,
+        "characteristics": [
+            {
+                "uuid": "2a19",
+                "name": "Battery Level",
+                "properties": [
+                    "read"
+                ],
+                "value": "5e",
+                "descriptors": [],
+                "startHandle": 70,
+                "valueHandle": 71,
+                "asciiValue": "^"
+            }
+        ]
+    }
+]
