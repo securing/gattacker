@@ -44,12 +44,12 @@ var saveAdvertisements=true;
 var readValues=true;
 var overWriteServices=false;
 
-if (opt.options.a) {
+if (opt.options["no-advertisements"]) {
     console.log('Not saving advertisement discovery.');
     saveAdvertisements=false;
 }
 
-if (opt.options.r) {
+if (opt.options["no-read"]) {
     console.log('Not reading characteristic values.')
     readValues=false;
 }
