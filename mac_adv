@@ -2,7 +2,7 @@
 
 echo "Advertise with cloned MAC address"
 
-BDADDR=/usr/local/bin/bdaddr
+BDADDR=helpers/bdaddr/bdaddr
 
 . ./config.env
 
