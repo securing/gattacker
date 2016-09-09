@@ -954,9 +954,9 @@ function exploreServices(peripheral, readValues, callback) {
                       async.detect(
                         descriptors,
                         function(descriptor, callback) {
-                          return callback(descriptor.uuid === '2901');
+                          return callback(null, descriptor.uuid === '2901');
                         },
-                        function(userDescriptionDescriptor){
+                        function(error, userDescriptionDescriptor){
                           if (userDescriptionDescriptor && readValues) {
                             userDescriptionDescriptor.readValue(function(error, data) {
                               if (data) {
