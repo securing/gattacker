@@ -2,6 +2,7 @@
 // For AT commands reference:
 // https://github.com/ideo-digital-shop/ble-arduino/tree/master/documentation/docs
 
+require('env2')('../config.env');
 
 if (process.argv.length < 3) {
 	console.log('Usage: node ' + process.argv[1] + ' <peripheralid>');

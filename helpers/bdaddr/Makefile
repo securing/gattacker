@@ -16,3 +16,6 @@ oui.o: oui.c
 clean:
 	$(RM) -f *.o
 	$(RM) -f bdaddr
+
+install: bdaddr
+	 cp bdaddr /usr/local/sbin
