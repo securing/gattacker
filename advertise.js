@@ -250,7 +250,9 @@ wsclient.on('notification', function(peripheralId, serviceUuid, uuid, data) {
           hookFunctions[hook.dynamicNotify](peripheralId, serviceUuid, uuid, 'notify', data , wsclient, function(err, modifiedData){
             if (modifiedData) {
               console.log('<< Notify DATA hook                                                             : '.yellow + modifiedData.toString('hex').yellow.inverse + ' (' + utils.hex2a(modifiedData.toString('hex'))+ ')');
-              subscriptions[serviceUuid][uuid](modifiedData);              
+              if (subscriptions[serviceUuid] && subscriptions[serviceUuid][uuid]) {
+                  subscriptions[serviceUuid][uuid](modifiedData);
+              }
             } else {
               console.log('<< Notify DATA hook: '.yellow + 'intercept, not forwarding'.yellow);
             }
