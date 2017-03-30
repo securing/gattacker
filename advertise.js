@@ -38,6 +38,7 @@ if (opt.options.funmode) {
 
 
 var devicesPath=process.env.DEVICES_PATH;
+var dumpPath=process.env.DUMP_PATH;
 var myAddress = '';
 var mitmservices;
 var servicesLookup = [];
@@ -151,6 +152,59 @@ function getServiceNames(serviceUuid, uuid) {
     return info;
 }
 
+function getDateTime() {
+
+    var date = new Date();
+
+    var hour = date.getHours();
+    hour = (hour < 10 ? "0" : "") + hour;
+
+    var min  = date.getMinutes();
+    min = (min < 10 ? "0" : "") + min;
+
+    var sec  = date.getSeconds();
+    sec = (sec < 10 ? "0" : "") + sec;
+
+    var msec  = date.getMilliseconds();
+    msec = (msec < 100 ? "0" : "") + msec;
+
+    var year = date.getFullYear();
+
+    var month = date.getMonth() + 1;
+    month = (month < 10 ? "0" : "") + month;
+
+    var day  = date.getDate();
+    day = (day < 10 ? "0" : "") + day;
+
+    return year + "." + month + "." + day + " " + hour + ":" + min + ":" + sec + '.' + msec;
+
+}
+
+
+//dump transmission log to file
+function dumpLog(type, peripheralId, serviceUuid, uuid, data ){
+
+    var dumpFile=dumpPath + '/' + peripheralId + '.log';
+
+    if (servicesLookup[serviceUuid]) {
+      var serviceName = servicesLookup[serviceUuid].name;
+      var characteristicName = servicesLookup[serviceUuid].characteristics[uuid].name;      
+    }
+
+    var toSave = getDateTime() + ' | ' + type + ' | ' + serviceUuid;
+    if (serviceName) { toSave += ' (' + serviceName + ')'; };
+    toSave += ' | ' + uuid;
+    if (characteristicName) { toSave += ' (' + characteristicName + ')';  };
+    toSave += ' | ' + data.toString('hex') + ' (' + utils.hex2a(data.toString('hex'))+ ')\n';
+
+    fs.appendFile(dumpFile, toSave, function(err) {
+      if(err) {
+          return console.log(err);
+      }
+    })
+}
+
+
 bleno.on('stateChange', function(state) {
     console.log('BLENO - on -> stateChange: ' + state);
     if (state === 'poweredOn') {
@@ -235,6 +289,8 @@ wsclient.on('notification', function(peripheralId, serviceUuid, uuid, data) {
 
     console.log('<< Notify: '.green + getServiceNames(serviceUuid,uuid) + ' : ' + data.toString('hex').green.inverse + ' (' + utils.hex2a(data.toString('hex')) + ')');
 //    console.log('forwarding...');
+    
+    dumpLog('> N',peripheralId, serviceUuid, uuid, data);
 
     if (hookTable[serviceUuid]) {
       var hook = hookTable[serviceUuid][uuid];
@@ -375,6 +431,7 @@ function setServices(services, callback){
                         wsclient.read(peripheralId, serviceUuid, uuid, function(data) {
                           if (data) {
                            console.log('<< Read:   '.green + info + ' : ' + data.toString('hex').green.inverse + ' (' + utils.hex2a(data.toString('hex'))+ ')');
+                           dumpLog('> R',peripheralId, serviceUuid, uuid, data);
                            callback(result, data);
                           }
                           else { //we did not receive the data (e.g. it was authenticated read and we have no bond with device)
@@ -393,6 +450,11 @@ function setServices(services, callback){
                     var uuid = this.uuid;
 
                     console.log('>> Write:  '.blue + getServiceNames(serviceUuid,uuid) + ' : '+ data.toString('hex').blue.inverse + ' (' + utils.hex2a(data.toString('hex'))+')');
+                    if (withoutResponse) {
+                      dumpLog('< W',peripheralId, serviceUuid, uuid, data);
+                    } else {
+                      dumpLog('< C',peripheralId, serviceUuid, uuid, data);                      
+                    }
 
                     if (hookTable[serviceUuid]) {
                      var hook = hookTable[serviceUuid][uuid];

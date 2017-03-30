@@ -138,6 +138,12 @@ wrapper script:
 ./mac_adv -a <advertisement_json_file> [ -s <services_json_file> ]
 ```
 
+## Dump, replay
+
+Dump files are saved in a path configured by `DUMP_PATH` in config.env (by default `dump`).
+More info:
+https://github.com/securing/gattacker/wiki/Dump-and-replay
+
 ## Troubleshooting
 
 Turn off, cross fingers, try again ;)
