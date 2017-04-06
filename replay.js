@@ -23,6 +23,7 @@ if ( !opt.options.input || !opt.options.peripheral)  {
   console.info(options.getHelp());
   process.exit(0);
 }
+var peripheralId = opt.options.peripheral;
 
 if (opt.options.services) {
   if (opt.options.services.indexOf('.srv.json') > -1 ) {
@@ -31,6 +32,7 @@ if (opt.options.services) {
     servicesFile=opt.options.services + '.srv.json';
   }
 } else {
+  var devicesPath=process.env.DEVICES_PATH;
   servicesFile = devicesPath+ '/'+peripheralId+'.srv.json';
 }
 
@@ -40,7 +42,6 @@ var waiting = false;
 var wsclient = require('./lib/ws-client');
 
 var inputData = fs.createReadStream(opt.options.input,'utf8');
-var peripheralId = opt.options.peripheral;
 
 
 function readLines(input, func) {
@@ -97,9 +98,9 @@ function parse(line) {
                    } 
                  }); break;
 
-    case '> R' : console.log('READ: '.green + data + ' --- skip'); 
+    case '> R' : console.log('READ: '.grey + data + ' --- skip'); 
                  break
-    case '> N' : console.log('NOTIFICATION: '.green + data + ' --- skip'); 
+    case '> N' : console.log('NOTIFICATION: '.grey + data + ' --- skip'); 
                  break
   }
 
