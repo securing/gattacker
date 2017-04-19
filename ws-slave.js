@@ -28,14 +28,14 @@ var isClientConnected=false;
 
 var eventEmitter = new events.EventEmitter();
 
-console.log('GATTacker ws-slave');
+console.log('\nGATTacker ws-slave\n'.white.bold);
 wss = new WebSocket.Server({
   port: port,
   perMessageDeflate: false 
 });
 
 wss.on('connection', function(ws_) {
-    console.log('ws -> connection');
+    console.log('[+]'.green.bold + 'ws -> connection'.yellow.bold);
 
     ws = ws_;
 
@@ -47,7 +47,7 @@ wss.on('connection', function(ws_) {
     ws.on('message', onMessage);
 
     ws.on('close', function() {
-      console.log('ws -> close');
+      console.log('[-]'.red.bold + 'ws -> close'.yellow.bold);
       //stop keeping connection to target device
       if (targetPeripheralId) {
         deinitialize(targetPeripheralId, function(peripheralId){
@@ -67,7 +67,21 @@ noble._bindings.on('handleNotify', onRawNotify);
 function sendEvent(event) {
   var message = JSON.stringify(event);
 
-  console.log('ws -> send: '.blue + message);
+  //console.log('ws -> send: '.blue.bold + message); //Orginal
+  console.log('\nws -> send:'.bgBlue.bold); //Modified
+
+  //New stuff added
+  var command = JSON.parse(message);
+  JSON.parse(message, (key,value) => {
+    if (key == '' || value == ''){} else {
+      if (key == 'uuid'){
+        console.log('') // This creates a new line break
+        console.log('-----------------------------------------------')
+      } 
+      console.log(key.blue.bold + ': '.blue.bold + value);
+      }
+  })
+  //End of new stuff for test
 
   var clients = wss.clients;
 
@@ -98,12 +112,21 @@ noble._bindings._hci.on('addressChange', function(address){
 
 
 var onMessage = function(message) {
-  console.log('ws -> message: '.green + message);
+  //console.log('\nws -> message: '.green.bold + message); //Orginal
+  console.log('\nws -> message:'.bgGreen.bold); //Modified
 
   var command = JSON.parse(message);
+  JSON.parse(message, (key,value) => {
+    if (key == '' || value == ''){} else {
+      if (key == 'uuid'){
+        console.log('') // This creates a new line break
+        console.log('-----------------------------------------------')
+      } 
+      console.log(key.green.bold + ': '.green.bold + value);
+      }
+  })
 
   var action = command.action;
-
   var peripheralId = command.peripheralId;
   var serviceUuids = command.serviceUuids;
   var serviceUuid = command.serviceUuid;
@@ -124,7 +147,7 @@ var onMessage = function(message) {
   if (peripheral && serviceUuid) {
       var service = servicesCache[peripheralId].services[serviceUuid];
       if (!service) {
-        debug('service not found!'.red);
+        debug('Service not found!'.red.bold);
       } else {
         var characteristic = servicesCache[peripheralId].services[serviceUuid].characteristics[characteristicUuid];
         if (!characteristic) {
@@ -182,6 +205,7 @@ var onMessage = function(message) {
   } else if (action === 'writeHandle') {
     peripheral.writeHandle(handle, data, withoutResponse);
   } 
+
 };
 
 
@@ -190,7 +214,7 @@ function initializeWithoutServices(peripheralId) {
    //was previously initialized for other device
   if (targetPeripheralId && targetPeripheralId != peripheralId) {
     deinitialize(targetPeripheralId, function(){
-      console.log('re-initialize for other device ');
+      console.log('Re-initialize for other device ');
     })
   }
 
@@ -240,7 +264,7 @@ function initialize(peripheralId, servicesJson, keepConnected) {
    //was previously initialized for other device
   if (targetPeripheralId && targetPeripheralId != peripheralId) {
     deinitialize(targetPeripheralId, function(){
-      console.log('re-initialize for other device ');
+      console.log('Re-initialize for other device ');
     })
   }
 
@@ -358,9 +382,9 @@ function readRaw(peripheralId, serviceUuid, uuid, callback){
   checkConnected(peripheral, function(){
     peripheral.readHandle(handle, function(error, data){
       if (error) {
-        debug('readHandle error : '.red + error)
+        debug('readHandle error: '.red + error)
       }
-      debug('read handle data :' + data.toString('hex'));
+      debug('read handle data:' + data.toString('hex'));
 
       sendEvent({
           type: 'read',
@@ -386,7 +410,7 @@ function writeRaw(peripheralId, serviceUuid, uuid, data, withoutResponse, callba
   checkConnected(peripheral, function(){
     peripheral.writeHandle(handle, new Buffer(data,'hex'), withoutResponse, function(error){
       if (error) {
-        debug('Write handle error! '. red + error);
+        debug('Write handle error! '.red + error);
       }
       debug('write handle sent ' + peripheralId + ' : ' + serviceUuid + ' : ' + uuid )
       sendEvent({
@@ -518,7 +542,7 @@ function checkConnected(peripheral, callback){
 
     peripheral.connect( function(error) {
         if (error) {
-          debug('checkconnected -> reconnect error !'.red + error)
+          debug('checkconnected -> reconnect error!'.red.bold + error)
         } else {
           debug('checkconnected -> reconnect');          
         }
