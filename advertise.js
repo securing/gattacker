@@ -343,7 +343,7 @@ function setServices(services, callback){
   for (sindex = 0; sindex < services.length; ++sindex) {
     serviceToCopy = services[sindex];
     servicesLookup[serviceToCopy.uuid]= { characteristics: [] };
-      debug("Setting up service: ".yellow + serviceToCopy.uuid);
+      debug("Setting up service: " + serviceToCopy.uuid);
       mitmcharacteristics=[];
       for (cindex = 0; cindex<serviceToCopy.characteristics.length; ++cindex) {
         characteristicToCopy = serviceToCopy.characteristics[cindex];
@@ -396,7 +396,7 @@ function setServices(services, callback){
 
                     var info = getServiceNames(serviceUuid, uuid);
 
-                    debug('<< Read req : '.green + this.serviceUuid +' -> ' + this.uuid  + ' offset: '.green + offset)
+                    debug('<< Read req : ' + this.serviceUuid +' -> ' + this.uuid  + ' offset: ' + offset)
 
                     //we assume the original device read success
                     //todo? - forward possible error to client
