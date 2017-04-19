@@ -396,7 +396,7 @@ function setServices(services, callback){
 
                     var info = getServiceNames(serviceUuid, uuid);
 
-                    debug('<< Read req : ' + this.serviceUuid +' -> ' + this.uuid  + ' offset: ' + offset)
+                    debug('<< Read req: '.green + this.serviceUuid +' -> ' + this.uuid  + ' offset: ' + offset)
 
                     //we assume the original device read success
                     //todo? - forward possible error to client
