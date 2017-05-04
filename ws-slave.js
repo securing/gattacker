@@ -511,7 +511,7 @@ function clientConnection(clientAddress, state) {
   if (state != true) {
     dis='dis';
   }
-  console.log('client ' + dis + 'connected : ' + clientAddress);
+  console.log('client '.yellow.bold + dis.red.bold + 'connected: '.yellow.bold + clientAddress.yellow.bold);
   isClientConnected = state;
   // send confirmation event for reconnect
   eventEmitter.emit('clientConnection', clientAddress, state);
