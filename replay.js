@@ -72,7 +72,8 @@ function parse(line) {
 
   if(waiting) {//we want it to match
         console.log('LINE: ' + line);
-        setTimeout(parse(line), 500);//wait 50 millisecnds then recheck
+        //setTimeout(parse(line), 500;//wait 50 millisecnds then recheck
+        setTimeout(parse(line), 20;//wait 20 millisecnds then recheck - Modified
         return;
   }
 
@@ -82,25 +83,50 @@ function parse(line) {
   var uuid = arr[3].trim().split(' ')[0];
   var data = arr[4].trim().split(' ')[0];
 
+
+/*
   switch(operator) {
-    case '< W' : console.log('WRITE REQ: '.blue + data ); 
+    case '< W' : console.log('WRITE REQ: '.blue.bold + data ); 
                  wsclient.write(peripheralId, serviceUuid, uuid, new Buffer(data,'hex'), true , function(error) {
                    if (error){
-                     console.log('------ Write error: '.red);
+                     console.log('------ Write error: '.red.bold);
                      throw(error);
                    } 
                  }); break;
     case '< C' : console.log('WRITE CMD: '.blue + data ); 
                  wsclient.write(peripheralId, serviceUuid, uuid, new Buffer(data,'hex'), false , function(error) {
                    if (error){
-                     console.log('------ Write error: '.red);
+                     console.log('------ Write error: '.red.bold);
+                     throw(error);
+                   } 
+                 }); break;
+*/
+
+  switch(operator) {
+    case '< W' : console.log('WRITE REQ: '.blue.bold + data.yellow + ' ('.yellow.bold + new Buffer(data, 'hex') + ')'.yellow.bold); 
+                 wsclient.write(peripheralId, serviceUuid, uuid, new Buffer(data,'hex'), true , function(error) {
+                   if (error){
+                     console.log('------ Write error: '.red.bold);
+                     throw(error);
+                   } 
+                 }); break;
+    case '< C' : console.log('WRITE CMD: '.green.bold + data.yellow + ' ('.yellow.bold + new Buffer(data, 'hex') + ')'.yellow.bold ); 
+                 wsclient.write(peripheralId, serviceUuid, uuid, new Buffer(data,'hex'), false , function(error) {
+                   if (error){
+                     console.log('------ Write error: '.red.bold);
                      throw(error);
                    } 
                  }); break;
 
-    case '> R' : console.log('READ: '.grey + data + ' --- skip'); 
+
+
+
+
+
+
+    case '> R' : console.log('READ: '.grey + data + ' --- skipped'); 
                  break
-    case '> N' : console.log('NOTIFICATION: '.grey + data + ' --- skip'); 
+    case '> N' : console.log('NOTIFICATION: '.grey + data + ' --- skipped'); 
                  break
   }
 
@@ -110,7 +136,7 @@ function parse(line) {
 wsclient.on('ws_open', function(){
     wsclient.getMac(function(address){
       myAddress = address;
-      console.log('Noble MAC address : ' + myAddress);
+      console.log('Noble MAC address: ' + myAddress);
     })
     wsclient.initialize(peripheralId, services, true, function(){
       console.log('initialized !');

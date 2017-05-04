@@ -85,6 +85,7 @@ var scanResponse = advertisement.scanResponse ? new Buffer(advertisement.scanRes
 
 console.log('[+]'.green.bold + "EIR:".yellow.bold + " " + eir.toString('hex'));
 console.log('[+]'.green.bold + "Scan Response:".yellow.bold + " " + scanResponse.toString('hex'));
+console.log(getDateTime().bgCyan.bold);
 
 if (opt.options.services) {
   if (opt.options.services.indexOf('.srv.json') > -1 ) {
@@ -229,7 +230,7 @@ bleno.on('advertisingStart', function(error) {
 });
 
 bleno.on('accept', function(clientAddress) {
-      console.log('Client Connected: '.green.bold + clientAddress);
+      console.log('Client Connected: \t'.green.bold + clientAddress + ' \t' + getDateTime().bgCyan.bold);
 
       if (clientAddress === myAddress) {
         console.log('SELF CONNECT!'.green);
@@ -247,7 +248,7 @@ bleno.on('accept', function(clientAddress) {
 
 //update the ws-slave on client disconnect
 bleno.on('disconnect', function(clientAddress){
-    console.log('Client Disconnected: '.red.bold + clientAddress);
+    console.log('Client Disconnected: \t'.red.bold + clientAddress + ' \t' + getDateTime().bgCyan.bold);
     if (!staticRun) {
       wsclient.clientConnection(clientAddress,false);
     }
@@ -256,11 +257,11 @@ bleno.on('disconnect', function(clientAddress){
 
 
 wsclient.on('disconnect', function(peripheralId){
-    console.log(' -----Target device disconnected!'.red.bold);
+    console.log(' -----Target device disconnected!'.red.bold + ' ' + getDateTime().bgCyan.bold);
 })
 
 wsclient.on('connect', function(peripheralId){
-    console.log(' -----Target device connected!'.green.bold);
+    console.log(' -----Target device connected!'.green.bold + ' ' + getDateTime().bgCyan.bold);
 })
 
 //change the advertisement

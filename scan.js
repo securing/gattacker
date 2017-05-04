@@ -45,17 +45,17 @@ var readValues=true;
 var overWriteServices=false;
 
 if (opt.options["no-advertisements"]) {
-    console.log('Not saving advertisement discovery.');
+    console.log('Not saving advertisement discovery because the -a flag was set.'.red.bold);
     saveAdvertisements=false;
 }
 
 if (opt.options["no-read"]) {
-    console.log('Not reading characteristic values.')
+    console.log('Not reading characteristic values.'.red.bold)
     readValues=false;
 }
 
 if (opt.options.overwrite) {
-    console.log('Overwrite services file if exists.');
+    console.log('Overwrite services file if exists.'.red.bold);
     overWriteServices=true;
 }
 
@@ -64,10 +64,10 @@ function exploreSpecified(peripheralId) {
 
   checkFile(peripheralId, function(exists){
     if (!exists) {
-        console.log('Start to explore ' + peripheralId)
+        console.log('[+]'.green.bold + 'No advertisement file exists, starting to explore '.yellow.bold + peripheralId.cyan.bold)
         wsclient.explore(peripheralId, readValues);
     } else {
-        console.log('Services file for ' + peripheralId + ' already saved, skipping. Use -o option to overwrite.');
+        console.log('Services file for '.yellow.bold + peripheralId.cyan.bold + ' already saved, skipping. Use -o option to overwrite.'.yellow.bold);
     }
   })
 
@@ -93,7 +93,7 @@ function checkFile(peripheralId, callback) {
 wsclient.on('stateChange', function(state) {
   if (state === 'poweredOn') {
     if (specifiedPeripheral) {
-      console.log('Start exploring ' + specifiedPeripheral);      
+      console.log('[+]'.green.bold + 'Start exploring '.yellow.bold + specifiedPeripheral.cyan.bold);      
       exploreSpecified(specifiedPeripheral)
     } else {
       console.log('Start scanning.');
@@ -122,7 +122,7 @@ wsclient.on('discover', function(peripheralId, address, addressType, connectable
 
 wsclient.on('explore', function(peripheralId, state, servicesJson){
 
-  console.log('explore state: ' + peripheralId + ' : ' + state);
+  console.log('[+]'.green.bold +'Explore state: '.yellow.bold + peripheralId.cyan.bold + ' - ' + state.magenta.bold);
   if(state === 'finished') {
 
     var filename = devicesPath+'/'+peripheralId+'.srv.json';
@@ -131,7 +131,7 @@ wsclient.on('explore', function(peripheralId, state, servicesJson){
         if(err) {
            return console.log(err);
         }
-         console.log("Services file "+ filename +" saved!");
+         console.log('[+]'.green.bold +"Services file ".yellow.bold+ filename.white.bold +" saved!".yellow.bold);
          if (peripheralId === specifiedPeripheral) {
             process.exit(0);         
          }
