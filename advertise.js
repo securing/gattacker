@@ -17,6 +17,7 @@ var options = new getopt([
   ['f' , 'funmode'             , 'have fun!'], 
   [''  , 'jk'                  , 'see http://xkcd.com/1692'],
   ['h' , 'help'                , 'display this help'],
+  ['w' , 'hooksfile=FILE'  , 'hook function'],
 ]);
 options.setHelp("Usage: node advertise -a <FILE> [ -s <FILE> ]  [-S] \n[[OPTIONS]]" )
 
@@ -28,14 +29,17 @@ if ( !opt.options.advertisement)  {
 }
 
 if (opt.options.help) {
-  options.showHelp()
-  process.exit(0)
+  options.showHelp();
+  process.exit(0);
 }
 
 if (opt.options.funmode) {
-  console.log('>>>>>>>>>>>>>>>>> MAY THE FUN BE WITH YOU! <<<<<<<<<<<<<<<<<<'.rainbow.inverse)
+  console.log('>>>>>>>>>>>>>>>>> MAY THE FUN BE WITH YOU! <<<<<<<<<<<<<<<<<<'.rainbow.inverse);
 }
 
+if (opt.options.hooksfile) {
+  hookFunctions = require('./hookFunctions/'+opt.options.hooksfile);
+}
 
 var devicesPath=process.env.DEVICES_PATH;
 var dumpPath=process.env.DUMP_PATH;
@@ -58,7 +62,6 @@ if (opt.options.static) {
   wsclient.write = function (peripheralId, serviceUuid, uuid) { console.log('static run write not defined in hooks ' + getServiceNames(serviceUuid, uuid)); };
   wsclient.read = function (peripheralId, serviceUuid, uuid) { console.log('static run read not defined in hooks '+ getServiceNames(serviceUuid, uuid)); };
   wsclient.notify = function (peripheralId, serviceUuid, uuid) { console.log('static run subscribe '+ getServiceNames(serviceUuid, uuid)); };
-
   wsclient.write();
 
 } else {
