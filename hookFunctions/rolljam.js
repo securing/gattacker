@@ -34,7 +34,7 @@ function getDateTime() {
 
 function RollJamLog(type, peripheralId, serviceUuid, uuid, data){
     /*
-     *  Logs only write command to replay in a special file with *.rolljam extension
+     *  Logs only write commands in a special file with *.rolljam extension
      * */
     var dumpFile='dump/' + peripheralId + '.rolljam';
     var toSave = getDateTime() + ' | ' + type + ' | ' + serviceUuid;
@@ -56,7 +56,7 @@ function RollJamWrite(peripheralId, service, characteristic, type, data, wsclien
 	 */
 	datastr = data.toString('hex');
 	commands = rjconfig.commands
-	for(var key in commands){ // Looking for all defined commands substring
+	for(var key in commands){ // Looking for all defined commands substrings
 		value = commands[key];
 		if (datastr.substring(0,key.length) === key)  {
 			if (rolljam_ctr === value.number-1) { // if a substring is found and it 
@@ -74,7 +74,7 @@ function RollJamWrite(peripheralId, service, characteristic, type, data, wsclien
 				rolljam_ctr2++;
 				
 				if (rolljam_ctr === rolljam_ctr2)
-				{ // And a reinit the RollJam process
+				{ // At the end: reinit the RollJam process
 					rolljam_ctr = 0;
 					rolljam_ctr2 = 0;
 				}

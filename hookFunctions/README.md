@@ -2,11 +2,11 @@ Example hook functions.
 
 ## RollJam hooking helper
 
-Some devices uses special commands that couldn't be understand without knowing their secrets and use a kind of rolling code style mecanism to prevent from replaying the command.
+Some devices use special commands that couldn't be understand without knowing their secrets, but also make the use of some kind of rolling code mecanisms to prevent against replaying attacks.
 
-To play with rolling code attacks, as it's the case for RollJam attack against remote controls using rolling code, a generic scripts hooking helper ``rolljam.js`` has been made.
+To play with rolling code attacks in BLE, as it's the case for RollJam attack against remote controls using rolling code, a generic scripts hooking helper ``rolljam.js`` has been provided here.
 
-To use it, you can launch the ``advertise.js`` script as follows with the ``-w`` command after configuring the devices characteristics, and RollJam commands configuration files:
+To use it, you can launch the ``advertise.js`` script as follows with the ``-w`` command after configuring the devices characteristics, and configuring also the ``RollJam.js`` commands configuration files:
 
 ```bash
 # node advertise.js -a devices/********ba6d_********BA6D-.adv.json -s devices/*******ba6d.srv.json -w rolljam.js 
@@ -30,7 +30,7 @@ Client connected: **:**:**:**:ce:78
 Client disconnected: **:**:**:**:ce:78
 ```
 
-To add the hooks, please add the following lines in the characteristics you want to interact with:
+To add the hook, please add the following lines in the characteristics you want to interact with:
 
 ```bash
 {
@@ -58,17 +58,19 @@ To configure the command to hook, you can edit the ``RollJam.json`` in the ``hoo
 
 ```bash
 { "commands" : 
-	{ "3984" : {
-			"to" : "3984",
-			"number" : 1
+	{ "3984" : { # substring of the command
+			"to" : "3984", # to replace with this command (exemple with imcomplete command)
+			"number" : 1 # command part 1
 	},
 	  "25" : {
 	  		"to" : "25",
-			"number" : 2
+			"number" : 2 # command part 2
 	  }
 	}
 }
 ```
+
+The ``number`` field is an index of the command part/fragmentation number.
 
 The 2nd session commands are kept in the ``dump/<device mac>.rolljam`` file as follows:
 
@@ -78,4 +80,4 @@ The 2nd session commands are kept in the ``dump/<device mac>.rolljam`` file as f
 2018.07.09 10:49:53.514 | < W | **f0 | **f1 | 25***********************************56
 ```
 
-And could be replay after with GATTacker or readapted for nRF connect with ``gattacker2nrf.js`` to replay them as macros.
+And could be replayed after with GATTacker, or readapted for nRF connect with ``gattacker2nrf.js`` to kept them as macros in the application to be replayed also.
