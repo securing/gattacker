@@ -32,7 +32,7 @@
     "bluetooth-hci-socket" : "^0.4.3",
     "bplist-parser": "^0.0.6",
     "colors": "^1.1.2",
-    "debug": "^2.2.0",
+    "debug": "^2.6.9",
     "env2": "^2.1.0",
     "glob": "^7.0.5",
     "ws": "^1.1.1",
