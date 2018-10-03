@@ -16,9 +16,9 @@ var options = new getopt([
   ['S' , 'static'              , 'static - do not connect to ws-slave/target device'],
   ['f' , 'funmode'             , 'have fun!'], 
   [''  , 'jk'                  , 'see http://xkcd.com/1692'],
-  ['h' , 'help'                , 'display this help'],
+  ['h' , 'help'               , 'display this help'],
 ]);
-options.setHelp("Usage: node advertise -a <FILE> [ -s <FILE> ]  [-S] \n[[OPTIONS]]" )
+options.setHelp("\nUsage:".underline + " node".bold + " advertise.js".cyan.bold + " -a <FILE> ".yellow.bold + "[ -s <FILE> ]".magenta.bold + "  [-S]".bold + " \n[[OPTIONS]]\n" )
 
 opt=options.parseSystem();
 
@@ -68,7 +68,7 @@ if (opt.options.static) {
 
 baseAdvFile=path.basename(opt.options.advertisement);
 var peripheralId = baseAdvFile.substring(0, baseAdvFile.indexOf("_"));
-console.log("peripheralid: " + peripheralId)
+console.log('[+]'.green.bold + "Peripheral ID (MAC):".yellow.bold + " " + peripheralId)
 
 
 if (opt.options.advertisement.indexOf('.adv.json') > -1 ) {
@@ -77,14 +77,15 @@ if (opt.options.advertisement.indexOf('.adv.json') > -1 ) {
   advertisementFile=opt.options.advertisement + '.adv.json';
 }
 
-console.log('advertisement file: ' + advertisementFile)
+console.log('[+]'.green.bold + 'Advertisement File:'.yellow.bold + " " + advertisementFile)
 
 var advertisement = JSON.parse(fs.readFileSync(advertisementFile, 'utf8'));
 var eir = new Buffer(advertisement.eir,'hex');
 var scanResponse = advertisement.scanResponse ? new Buffer(advertisement.scanResponse, 'hex') : '';
 
-console.log("EIR: " + eir.toString('hex'));
-console.log("scanResponse: " + scanResponse.toString('hex'));
+console.log('[+]'.green.bold + "EIR:".yellow.bold + " " + eir.toString('hex'));
+console.log('[+]'.green.bold + "Scan Response:".yellow.bold + " " + scanResponse.toString('hex'));
+console.log(getDateTime().bgCyan.bold);
 
 if (opt.options.services) {
   if (opt.options.services.indexOf('.srv.json') > -1 ) {
@@ -109,10 +110,10 @@ if (!staticRun) {
   wsclient.on('ws_open', function(){
     wsclient.getMac(function(address){
       myAddress = address;
-      console.log('Noble MAC address : ' + myAddress);
+      console.log('[+]'.green.bold + 'Noble MAC address: '.blue.bold + myAddress);
     })
     wsclient.initialize(peripheralId, services, true, function(){
-      console.log('initialized !');
+      console.log('[+]Initialized!'.green.bold);
       startAdvertising();
     })
   });
@@ -122,17 +123,17 @@ if (!staticRun) {
 
 function startAdvertising(){
   if (bleno.state != 'poweredOn') {
-    console.log('waiting for interface to initialize...');
+    console.log('Waiting for interface to initialize...'.yellow);
     bleno.once('stateChange', function(state){
       if (state === 'poweredOn') {
         bleno.startAdvertisingWithEIRData(eir,scanResponse);    
       } else {
-        console.log('Interface down! Exiting...');
+        console.log('[-]'.red.bold + 'Interface down! Exiting...'.red.bold);
         process.exit(1);
       }
     }) 
   } else {
-     console.log('Static - start advertising');
+     console.log('[+]'.green.bold + 'Static - Start Advertising...'.green.bold);
      bleno.startAdvertisingWithEIRData(eir,scanResponse);  
   }
 }
@@ -206,33 +207,33 @@ function dumpLog(type, peripheralId, serviceUuid, uuid, data ){
 
 
 bleno.on('stateChange', function(state) {
-    console.log('BLENO - on -> stateChange: ' + state);
+    console.log('[+]'.green.bold + 'BLENO - on -> stateChange: '.green.bold + state);
     if (state === 'poweredOn') {
 //              console.log('poweredOn');
     } else {
-       console.log('Interface down! Reset/power it up again...')
+       console.log('[-]'.red.bold + 'Interface down! Reset/Power it up again...'.red.bold)
        bleno.stopAdvertising();
     }
 });
 
 bleno.on('advertisingStart', function(error) {
-      console.log('on -> advertisingStart: ' + (error ? 'error ' + error : 'success'));
+      console.log('On -> advertisingStart: '.yellow.bold + (error ? 'Error '.red.bold + error : 'Success'.green.bold));
 
     if (error) {
-              console.log("Adv error ".red,error);
+              console.log('[-]'.red.bold + "Advertising Error ".red.bold,error);
     } else {
         bleno.setServices( mitmservices, function(error){
-            console.log('setServices: '  + (error ? 'error ' + error : 'success'));
-            console.log(' <<<<<<<<<<<<<<<< INITIALIZED >>>>>>>>>>>>>>>>>>>> '.magenta.inverse)
+            console.log('setServices: '.yellow.bold  + (error ? 'Error '.red.bold + error : 'Success'.green.bold));
+            console.log('\n <<<<<<<<<<<<<<<< INITIALIZED >>>>>>>>>>>>>>>>>>>> \n'.magenta.inverse)
         });
     }
 });
 
 bleno.on('accept', function(clientAddress) {
-      console.log('Client connected: ' + clientAddress);
+      console.log('Client Connected: \t'.green.bold + clientAddress + ' \t' + getDateTime().bgCyan.bold);
 
       if (clientAddress === myAddress) {
-        console.log('SELF CONNECT!');
+        console.log('SELF CONNECT!'.green);
         bleno.disconnect();
       } else {
         if (!staticRun) {
@@ -247,7 +248,7 @@ bleno.on('accept', function(clientAddress) {
 
 //update the ws-slave on client disconnect
 bleno.on('disconnect', function(clientAddress){
-    console.log('Client disconnected: ' + clientAddress);
+    console.log('Client Disconnected: \t'.red.bold + clientAddress + ' \t' + getDateTime().bgCyan.bold);
     if (!staticRun) {
       wsclient.clientConnection(clientAddress,false);
     }
@@ -256,11 +257,11 @@ bleno.on('disconnect', function(clientAddress){
 
 
 wsclient.on('disconnect', function(peripheralId){
-    console.log('      target device disconnected');
+    console.log(' -----Target device disconnected!'.red.bold + ' ' + getDateTime().bgCyan.bold);
 })
 
 wsclient.on('connect', function(peripheralId){
-    console.log('      target device connected');
+    console.log(' -----Target device connected!'.green.bold + ' ' + getDateTime().bgCyan.bold);
 })
 
 //change the advertisement
@@ -268,7 +269,7 @@ wsclient.on('advchange', function(newEir, newScanResponse){
       bleno.stopAdvertising(function(){
         //wait 2 seconds after stopAdvertising, otherwise the HCI will often fail with "Command Disallowed"
         setTimeout(function() {
-              console.log('Advertisement change: waited 2s for device, should work now...');
+              console.log('Advertisement change: waited 2s for device, should work now...'.yellow);
               console.log('  old ' + eir.toString('hex') + ' ('+ utils.hex2a(eir) +') '+ ' : ' + scanResponse.toString('hex') + ' ('+ utils.hex2a(scanResponse) +')');
               console.log('  new ' + newEir.toString('hex') + ' ('+ utils.hex2a(newEir) +') '+ ' : ' + newScanResponse.toString('hex') + ' ('+ utils.hex2a(newScanResponse) +') ');
               bleno.startAdvertisingWithEIRData(newEir,newScanResponse);
@@ -396,7 +397,7 @@ function setServices(services, callback){
 
                     var info = getServiceNames(serviceUuid, uuid);
 
-                    debug('<< Read req : '.green + this.serviceUuid +' -> ' + this.uuid  + ' offset: ' + offset)
+                    debug('<< Read req: '.green + this.serviceUuid +' -> ' + this.uuid  + ' offset: ' + offset)
 
                     //we assume the original device read success
                     //todo? - forward possible error to client
@@ -480,7 +481,7 @@ function setServices(services, callback){
                                   callback(0x00);
                                 });
                             } else {
-                                console.log('    hook function did not return modified data');
+                                console.log('    hook function did not return modified data'.yellow);
                                 callback(0x00);
                             }
                           })
