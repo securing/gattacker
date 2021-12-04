@@ -29,13 +29,13 @@
   "license": "MIT",
   "dependencies": {
     "async": "^2.0.1",
-    "bluetooth-hci-socket" : "^0.4.3",
+    "bluetooth-hci-socket": "npm:@abandonware/bluetooth-hci-socket@^0.5.3-8",
     "bplist-parser": "^0.0.6",
     "colors": "^1.1.2",
     "debug": "^2.6.9",
     "env2": "^2.1.0",
     "glob": "^7.0.5",
-    "ws": "^1.1.1",
-    "node-getopt" : "^0.2.3"
+    "node-getopt": "^0.2.3",
+    "ws": "^1.1.1"
   }
 }
