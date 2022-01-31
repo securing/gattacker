@@ -29,7 +29,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "^2.0.1",
-    "bluetooth-hci-socket": "npm:@abandonware/bluetooth-hci-socket",
+    "bluetooth-hci-socket": "npm:@abandonware/bluetooth-hci-socket@^0.5.3-8",
     "bplist-parser": "^0.0.6",
     "colors": "^1.1.2",
     "debug": "^2.6.9",
